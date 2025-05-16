@@ -1,7 +1,4 @@
-export default function SignUp() {
-    return (
-        <div className="flex-center h-screen">
-            <h1 className="h1">Sign Up</h1>
-        </div>
-    );
-}
+import AuthForm from "@/components/AuthForm";
+
+const SignUp = () => <AuthForm type="sign-up" />;
+export default SignUp;
