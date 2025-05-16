@@ -10,6 +10,11 @@
   --color-foreground: var(--foreground);
   --color-brand: #fa7275;
   --color-brand-100: #ea6365;
+  --color-brand-black: #131524;
+  --color-brand-black-100: #04050c;
+  --color-brand-blue: #333f4e;
+  --color-bluegray-100:#f2f5f9;
+  --color-brand-bluegray: #a3b2c7;
   --color-green: #3dd9b3;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
