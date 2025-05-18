@@ -1,8 +1,14 @@
-"user server";
+"use server";
 
 import { ID, Query } from "node-appwrite";
 import { createAdminClient } from "../appwrite";
 import { appwriteConfig } from '../appwrite/config';
+import { parseStringify } from "../utils";
+
+const handleError = (error: unknown, message: string) => {
+    console.log(error, message);
+    throw error;
+}
 
 const getUserByEmail = async (email: string) => {
     const { databases } = await createAdminClient();
@@ -20,11 +26,24 @@ const sendEmailOTP = async ({ email }: { email: string }) => {
         const session = await account.createEmailToken(ID.unique(), email);
         return session.userId
     } catch (error) {
-        console.log(error)
+        handleError(error, "Error sending Email OTP");
     }
+
+
 }
 
-const createAccount = async ({ fullName, email }: { fullName: string, email: string }) => {
+export const createAccount = async ({ fullName, email }: { fullName: string, email: string }) => {
     const existingUser = await getUserByEmail(email);
     const accountId = await sendEmailOTP({ email });
+    if (!accountId) throw new Error("Failed to send an OTP");
+    if (!existingUser) {
+        const { databases } = await createAdminClient()
+        await databases.createDocument(appwriteConfig.databaseId, appwriteConfig.usersCollectionId, ID.unique(), {
+            fullName,
+            email,
+            avatar: "https://avatar.iran.liara.run/public",
+            accountId
+        });
+    }
+    return parseStringify({accountId});
 }
