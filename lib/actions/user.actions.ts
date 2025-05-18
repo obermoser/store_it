@@ -4,12 +4,16 @@ import { ID, Query } from "node-appwrite";
 import { createAdminClient } from "../appwrite";
 import { appwriteConfig } from '../appwrite/config';
 import { parseStringify } from "../utils";
+import { cookies } from "next/headers";
 
+// In case an error occurs, handle it here
 const handleError = (error: unknown, message: string) => {
     console.log(error, message);
     throw error;
 }
 
+
+// #region Get the current user by mail 
 const getUserByEmail = async (email: string) => {
     const { databases } = await createAdminClient();
     const result = await databases.listDocuments(
@@ -19,8 +23,10 @@ const getUserByEmail = async (email: string) => {
     );
     return result.total > 0 ? result.documents[0] : null;
 }
+// #endregion
 
-const sendEmailOTP = async ({ email }: { email: string }) => {
+// #region Send OTP to Mail
+export const sendEmailOTP = async ({ email }: { email: string }) => {
     const { account } = await createAdminClient();
     try {
         const session = await account.createEmailToken(ID.unique(), email);
@@ -28,10 +34,10 @@ const sendEmailOTP = async ({ email }: { email: string }) => {
     } catch (error) {
         handleError(error, "Error sending Email OTP");
     }
-
-
 }
+// #endregion
 
+// #region Account creation
 export const createAccount = async ({ fullName, email }: { fullName: string, email: string }) => {
     const existingUser = await getUserByEmail(email);
     const accountId = await sendEmailOTP({ email });
@@ -45,5 +51,22 @@ export const createAccount = async ({ fullName, email }: { fullName: string, ema
             accountId
         });
     }
-    return parseStringify({accountId});
+    return parseStringify({ accountId });
+}
+// #endregion
+
+export const verifySecret = async ({ accountId, password }: { accountId: string, password: string }) => {
+    try {
+        const { account } = await createAdminClient();
+        const session = await account.createSession(accountId, password);
+        (await cookies()).set("appwrite-session", session.secret, {
+            path: '/',
+            httpOnly: true,
+            sameSite: "strict",
+            secure: true
+        });
+        return parseStringify({ sessionId: session.$id })
+    } catch (error) {
+        console.warn("Failed to verify OTP: ", error)
+    }
 }

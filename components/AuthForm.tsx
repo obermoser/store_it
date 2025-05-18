@@ -4,6 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "./ui/input";
+
 import {
   Form,
   FormControl,
@@ -17,6 +18,7 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { createAccount } from "@/lib/actions/user.actions";
+import OTPModal from "./OTPModal";
 
 type FormType = "sign-in" | "sign-up";
 const authFormSchema = (formType: FormType) => {
@@ -45,7 +47,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
-    setErrorMessage("")
+    setErrorMessage("");
     try {
       const user = await createAccount({
         fullName: values.fullName || "",
@@ -138,6 +140,9 @@ const AuthForm = ({ type }: { type: FormType }) => {
           </div>
         </form>
       </Form>
+      {accountId && (
+        <OTPModal email={form.getValues("email")} accountId={accountId} />
+      )}
     </>
   );
 };
