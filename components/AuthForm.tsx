@@ -18,7 +18,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { createAccount, signInUser } from "@/lib/actions/user.actions";
-import OtpModal from "@/components/OTPModal";
+import OTPModal from "@/components/OTPModal";
 
 type FormType = "sign-in" | "sign-up";
 
@@ -158,7 +158,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
       </Form>
 
       {accountId && (
-        <OtpModal email={form.getValues("email")} accountId={accountId} />
+        <OTPModal email={form.getValues("email")} accountId={accountId} />
       )}
     </>
   );
