@@ -14,7 +14,6 @@ interface Props {
 
 const Sidebar = ({ fullName, avatar, email }: Props) => {
   const pathname = usePathname();
-
   return (
     <aside className="sidebar">
       <Link href="/">
@@ -79,8 +78,8 @@ const Sidebar = ({ fullName, avatar, email }: Props) => {
           className="sidebar-user-avatar"
         />
         <div className="hidden lg:block">
-          <p className="subtitle-2 capitalize">{fullName || "Demo"}</p>
-          <p className="caption">{email || "Demo"}</p>
+          <p className="subtitle-2 capitalize">{fullName}</p>
+          <p className="caption">{email}</p>
         </div>
       </div>
     </aside>
