@@ -2,7 +2,6 @@
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
@@ -11,11 +10,11 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { navItems } from "@/constants";
-import FileUploader from "./FileUploader";
 import { Separator } from "./ui/separator";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { signOutUser } from "@/lib/actions/user.action";
+import { Button } from "./ui/button";
+import { signOutUser } from "@/lib/actions/user.actions";
+import FileUploader from "./FileUploader";
 
 interface Props {
   $id: string;
@@ -96,6 +95,21 @@ const MobileNavigation = ({
             </ul>
           </nav>
           <Separator className="my-5 bg-light-200/20"/>
+          <div className="flex flex-col justify-between gap-5">
+            <FileUploader/>
+          </div>
+                    <Button type="submit" className="mobile-sign-out-button">
+                      <Image
+                        src="/assets/icons/logout.svg"
+                        width={24}
+                        height={24}
+                        onClick={async ()=> await signOutUser}
+                        alt="Logout Button"
+                        className="w-6"
+                      />
+                      <p>Logout</p>
+                    </Button>
+          
         </SheetContent>
       </Sheet>
     </header>
