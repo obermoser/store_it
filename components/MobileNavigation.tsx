@@ -95,7 +95,7 @@ const MobileNavigation = ({
               ))}
             </ul>
           </nav>
-          <Separator/>
+          <Separator className="my-5 bg-light-200/20"/>
         </SheetContent>
       </Sheet>
     </header>
