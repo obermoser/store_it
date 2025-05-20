@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background circle with opacity -->
+    <circle opacity="0.1" cx="20" cy="20" r="20" fill="#3DD9B3"/>
+    
+    <!-- Airplane -->
+    <path d="M32 20L36 17L38 20L36 23L32 20Z" fill="#3DD9B3"/>
+    <path d="M8 20L4 17L2 20L4 23L8 20Z" fill="#3DD9B3"/>
+    <path d="M20 16L20 24" stroke="#3DD9B3" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M16 20L24 20" stroke="#3DD9B3" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Tail -->
+    <path d="M20 24L26 27L20 30L14 27L20 24Z" fill="#3DD9B3"/>
+</svg> 

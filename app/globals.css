@@ -441,7 +441,7 @@
   }
 
   .header-user {
-    @apply my-3 flex items-center gap-2 rounded-full p-1 text-light-100 sm:justify-center sm:bg-brand/10 lg:justify-start lg:p-3 !important;
+    @apply my-3 flex items-start justify-start gap-2 rounded-full p-1 text-light-100 sm:justify-start sm:bg-brand/10 lg:justify-start lg:p-3 !important;
   }
 
   .header-user-avatar {

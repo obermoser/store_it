@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import MobileNavigation from "@/components/MobileNavigation";
 import Sidebar from "@/components/Sidebar";
 import { getCurrentUser } from "@/lib/actions/user.actions";
+import { createSessionClient } from "@/lib/appwrite";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -12,10 +13,9 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
     <main className="flex h-screen">
       <Sidebar {...currentUser} />
       <section className="h-full flex-1 flex-col">
-        <MobileNavigation /> <Header />
-        <div className="main-content">
-          {children} {currentUser && <p>{JSON.stringify(currentUser)}</p>}
-        </div>
+        <MobileNavigation {...currentUser} />
+        <Header />
+        <div className="main-content">{children}</div>
       </section>
     </main>
   );
