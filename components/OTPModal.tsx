@@ -37,14 +37,13 @@ const OTPModal = ({
     e.preventDefault();
     setIsLoading(true);
 
-    console.log({ accountId, password });
-
     try {
       const sessionId = await verifySecret({ accountId, password });
 
-      console.log({ sessionId });
-
-      if (sessionId) router.push("/");
+      if (sessionId) {
+        console.log("Now pushing to root view");
+        router.push("/")
+      };
     } catch (error) {
       console.log("Failed to verify OTP", error);
     }

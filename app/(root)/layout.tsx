@@ -7,13 +7,15 @@ import React from "react";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const currentUser = await getCurrentUser();
-  if (!currentUser) redirect("/sign-in");
+  // if (!currentUser) redirect("/sign-in");
   return (
     <main className="flex h-screen">
       <Sidebar {...currentUser} />
       <section className="h-full flex-1 flex-col">
         <MobileNavigation /> <Header />
-        <div className="main-content">{children}</div>
+        <div className="main-content">
+          {children} {currentUser && <p>{JSON.stringify(currentUser)}</p>}
+        </div>
       </section>
     </main>
   );

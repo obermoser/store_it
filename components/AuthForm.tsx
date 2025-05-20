@@ -33,6 +33,13 @@ const authFormSchema = (formType: FormType) => {
 };
 
 const AuthForm = ({ type }: { type: FormType }) => {
+  // MARK: Debug
+  console.log("Appwrite Config:", {
+    endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT_URL,
+    projectId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT,
+    // Don't log sensitive values like secretKey
+  });
+
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [accountId, setAccountId] = useState(null);
